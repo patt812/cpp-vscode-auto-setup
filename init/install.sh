@@ -62,6 +62,85 @@ code --install-extension ms-vscode.cpptools
 code --install-extension ms-vscode.cmake-tools
 code --install-extension vadimcn.vscode-lldb
 
+# Create .vscode directory and settings files
+mkdir -p .vscode
+
+# Create settings.json
+cat <<EOL > .vscode/settings.json
+{
+    "C_Cpp.default.compilerPath": "$GPP_PATH",
+    "cmake.configureOnOpen": true
+}
+EOL
+
+# Create tasks.json
+cat <<EOL > .vscode/tasks.json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build with gcc",
+            "type": "shell",
+            "command": "$GPP_PATH", 
+            "args": [
+                "-std=c++20",
+                "-gdwarf-3",
+                "\${file}",
+                "-o",
+                "bin/a.out",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
+EOL
+
+# Create launch.json
+cat <<EOL > .vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Debug",
+            "type": "lldb",
+            "request": "launch",
+            "program": "\${workspaceFolder}/bin/a.out",
+            "args": [],
+            "cwd": "\${workspaceFolder}",
+            "preLaunchTask": "Build with gcc"
+        }
+    ]
+}
+EOL
+
+# Create c_cpp_properties.json
+cat <<EOL > .vscode/c_cpp_properties.json
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "\${workspaceFolder}/**",
+                "$GCC_PATH/include/c++/12",
+                "/usr/local/include"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "compilerPath": "$GPP_PATH",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
+EOL
+
 # Create bin directory for compiled binaries
 mkdir -p bin
 

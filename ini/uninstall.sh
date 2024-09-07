@@ -1,6 +1,14 @@
 #!/bin/bash
 
 set -e
+PROJECT_ROOT=$(pwd)
+CURRENT_DIR=$(basename "$(pwd)" | tr -d '[:space:]')
+
+# Force execute from the root directory to avoid files created in the wrong directory
+if [[ "$CURRENT_DIR" == "ini" ]]; then
+    echo "Changed directory to root."
+    cd ..
+fi
 
 # Uninstall GCC installed via Homebrew
 if brew list gcc &>/dev/null; then

@@ -40,20 +40,20 @@ cd cpp-vscode-auto-setup
 3. Make the script executable.
 
 ```bash
-chmod +x init/*.sh
+chmod +x ini/*.sh
 ```
 
 4. Run the setup script to install dependencies and configure your environment.
 
 ```bash
-init/install.sh
+ini/install.sh
 ```
 
 ## Uninstallation
 To reset the environment, run the following script:
 
 ```bash
-init/uninstall.sh
+ini/uninstall.sh
 ```
 
 **Note**: This script will only uninstall the dependencies and Visual Studio Code extensions installed via Homebrew. It will not delete any project files.

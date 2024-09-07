@@ -5,7 +5,7 @@ PROJECT_ROOT=$(pwd)
 CURRENT_DIR=$(basename "$(pwd)" | tr -d '[:space:]')
 
 # Force execute from the root directory to avoid files created in the wrong directory
-if [[ "$CURRENT_DIR" == "init" ]]; then
+if [[ "$CURRENT_DIR" == "ini" ]]; then
     echo "Please execute this script from the root directory."
     cd ..
 fi
